@@ -1,18 +1,21 @@
 const router = require("express").Router();
 
 const Booking = require("../models/Booking");
-
+const Listing = require("../models/Listing");
 // ! CREATE BOOKING
 router.post("/create", async (req, res) => {
   try {
-    const { customerId, hostId, listingId, startDate, endDate, totalPrice } =
-      req.body;
+    const { customerId, hostId, listingId, totalPrice } = req.body;
+    const listing = await Listing.findByIdAndUpdate(listingId, {
+      isBooked: true,
+    });
+
+    const bookedAt = new Date();
     const newBooking = new Booking({
       customerId,
       hostId,
       listingId,
-      startDate,
-      endDate,
+      bookedAt,
       totalPrice,
     });
     await newBooking.save();

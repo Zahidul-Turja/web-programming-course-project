@@ -6,11 +6,10 @@ import "../styles/Categories.scss";
 const Categories = () => {
   return (
     <div className="categories">
-      <h1>Explore Top Categories</h1>
+      <h1>Our Top Categories</h1>
       <p>
-        Explore our wide range of vacation rentals that cater to all types of
-        travelers. Immerse yourself in the local culture, enjoy the comforts of
-        home, and create unforgettable memories in your dream destination.
+        Explore our wide range of house rentals that cater to all types of
+        tenants. Find your comfort home in a reasonable price.
       </p>
 
       <div className="categories_list">

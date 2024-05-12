@@ -12,6 +12,9 @@ import Navbar from "../components/Navbar";
 import "../styles/CreateListing.scss";
 import variables from "../styles/variables.scss";
 
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+
 function CreateListing() {
   const navigate = useNavigate();
 
@@ -58,6 +61,14 @@ function CreateListing() {
 
   // ! UPLOAD, DRAG & DROP, REMOVE PHOTOS
   const [photos, setPhotos] = useState([]);
+
+  // ! Date
+  const [date, setDate] = useState(new Date());
+
+  function handleDateChange(value) {
+    console.log(value);
+    setDate(value);
+  }
 
   const handleUploadPhotos = (e) => {
     const newPhotos = e.target.files;
@@ -123,6 +134,7 @@ function CreateListing() {
       listingForm.append("description", formDescription.description);
       listingForm.append("highlight", formDescription.highlight);
       listingForm.append("highlightDesc", formDescription.highlightDesc);
+      listingForm.append("date", date);
       listingForm.append("price", formDescription.price);
 
       // ! Append each selected photos to the FormData object
@@ -204,10 +216,10 @@ function CreateListing() {
 
             <div className="half">
               <div className="location">
-                <p>Apartment, Suite, etc. (if applicable)</p>
+                <p>Apartment # (if applicable)</p>
                 <input
                   type="text"
-                  placeholder="Apt, Suite, etc. (if applicable)"
+                  placeholder="Apt, Suite, etc."
                   name="aptSuite"
                   value={formLocation.aptSuite}
                   onChange={handleChangeLocation}
@@ -229,10 +241,10 @@ function CreateListing() {
 
             <div className="half">
               <div className="location">
-                <p>Province</p>
+                <p>District</p>
                 <input
                   type="text"
-                  placeholder="Province"
+                  placeholder="District"
                   name="province"
                   value={formLocation.province}
                   onChange={handleChangeLocation}
@@ -307,33 +319,6 @@ function CreateListing() {
                   />
                 </div>
               </div>
-
-              {/* <div className="basic">
-                <p>Beds</p>
-                <div className="basic_count">
-                  <RemoveCircleOutline
-                    onClick={() => {
-                      bedCount > 1 && setBedCount(bedCount - 1);
-                    }}
-                    sx={{
-                      fontSize: "25px",
-                      cursor: "pointer",
-                      "&:hover": { color: variables.pinkred },
-                    }}
-                  />
-                  <p>{bedCount}</p>
-                  <AddCircleOutline
-                    onClick={() => {
-                      setBedCount(bedCount + 1);
-                    }}
-                    sx={{
-                      fontSize: "25px",
-                      cursor: "pointer",
-                      "&:hover": { color: variables.pinkred },
-                    }}
-                  />
-                </div>
-              </div> */}
 
               <div className="basic">
                 <p>Bathrooms</p>
@@ -549,54 +534,60 @@ function CreateListing() {
             </DragDropContext>
 
             <h3>What make your place attractive and exciting?</h3>
-            <div className="description">
-              <p>Title</p>
-              <input
-                type="text"
-                placeholder="Title"
-                name="title"
-                value={formDescription.title}
-                onChange={handleChangeDescription}
-                required
-              />
-              <p>Description</p>
-              <textarea
-                type="text"
-                placeholder="Description"
-                name="description"
-                value={formDescription.description}
-                onChange={handleChangeDescription}
-                required
-              />
-              <p>Highlight</p>
-              <input
-                type="text"
-                placeholder="Highlight"
-                name="highlight"
-                value={formDescription.highlight}
-                onChange={handleChangeDescription}
-                required
-              />
-              <p>Highlight details</p>
-              <textarea
-                type="text"
-                placeholder="Highlight details"
-                name="highlightDesc"
-                value={formDescription.highlightDesc}
-                onChange={handleChangeDescription}
-                required
-              />
-              <p>Now, set your PRICE / MONTH</p>
-              <span>৳</span>
-              <input
-                type="number"
-                placeholder="15000"
-                name="price"
-                value={formDescription.price}
-                onChange={handleChangeDescription}
-                className="price"
-                required
-              />
+            <div className="final-container">
+              <div className="description">
+                <p>Title</p>
+                <input
+                  type="text"
+                  placeholder="Title"
+                  name="title"
+                  value={formDescription.title}
+                  onChange={handleChangeDescription}
+                  required
+                />
+                <p>Description</p>
+                <textarea
+                  type="text"
+                  placeholder="Description"
+                  name="description"
+                  value={formDescription.description}
+                  onChange={handleChangeDescription}
+                  required
+                />
+                <p>Highlight</p>
+                <input
+                  type="text"
+                  placeholder="Highlight"
+                  name="highlight"
+                  value={formDescription.highlight}
+                  onChange={handleChangeDescription}
+                  required
+                />
+                <p>Highlight details</p>
+                <textarea
+                  type="text"
+                  placeholder="Highlight details"
+                  name="highlightDesc"
+                  value={formDescription.highlightDesc}
+                  onChange={handleChangeDescription}
+                  required
+                />
+                <p>Now, set your PRICE / MONTH</p>
+                <span>৳</span>
+                <input
+                  type="number"
+                  placeholder="15000"
+                  name="price"
+                  value={formDescription.price}
+                  onChange={handleChangeDescription}
+                  className="price"
+                  required
+                />
+              </div>
+              <div className="date">
+                <p>Place available from?</p>
+                <Calendar value={date} onChange={handleDateChange} />
+              </div>
             </div>
           </div>
 

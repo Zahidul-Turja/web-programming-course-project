@@ -42,6 +42,7 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
       description,
       highlight,
       highlightDesc,
+      date,
       price,
     } = req.body;
 
@@ -76,6 +77,7 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
       description,
       highlight,
       highlightDesc,
+      date,
       price,
     });
 
@@ -99,11 +101,14 @@ router.get("/", async (req, res) => {
   try {
     let listings;
     if (qCategory) {
-      listings = await Listing.find({ category: qCategory }).populate(
-        "creator"
-      );
+      listings = await Listing.find({
+        category: qCategory,
+        isBooked: false,
+      }).populate("creator");
     } else {
-      listings = await Listing.find().populate("creator");
+      listings = await Listing.find({
+        isBooked: false,
+      }).populate("creator");
     }
 
     res.status(200).json(listings);

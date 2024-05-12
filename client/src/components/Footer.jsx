@@ -25,7 +25,7 @@ function Footer() {
         <h3>Contact</h3>
         <div className="footer_right_info">
           <LocalPhone />
-          <p>+1 234 567 890</p>
+          <p>+8801234567</p>
         </div>
         <div className="footer_right_info">
           <Email />

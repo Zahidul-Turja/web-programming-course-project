@@ -128,15 +128,34 @@
       }
     }
 
-    .date-range-calendar {
+    .book-div {
+      width: 25rem;
       margin: 30px 0;
+      padding: 40px 30px;
+
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
       h2 {
-        margin-bottom: 10px;
+        margin-bottom: 0px;
+
+        span {
+          font-weight: 500;
+        }
+      }
+
+      p {
+        font-size: 1.1rem;
+        font-weight: 500;
+
+        span {
+          font-weight: 800;
+        }
       }
 
       .button {
         @include buttonStyle;
+        text-transform: uppercase;
         width: 100%;
         margin-top: 30px;
 

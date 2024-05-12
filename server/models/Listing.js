@@ -86,9 +86,17 @@ const ListingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    date: {
+      type: String,
+      required: true,
+    },
     price: {
       type: Number,
       required: true,
+    },
+    isBooked: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

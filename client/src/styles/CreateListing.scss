@@ -334,6 +334,40 @@
       }
     }
 
+    .final-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .date {
+        text-align: center;
+
+        p {
+          font-size: 1.2rem;
+          font-weight: 700;
+          margin: 20px 0 10px;
+        }
+
+        .react-calendar {
+          padding: 1.5rem 1rem;
+          margin-top: 2rem;
+          font-size: 1.1rem;
+          border-radius: 10px;
+          width: 28rem;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+          border: none;
+
+          button {
+            span {
+              color: $pinkred;
+              font-size: 1.2rem;
+              font-weight: 800;
+            }
+          }
+        }
+      }
+    }
+
     .description {
       p {
         font-weight: 700;
