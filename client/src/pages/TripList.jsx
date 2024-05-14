@@ -41,7 +41,8 @@ function TripList() {
   ) : (
     <>
       <Navbar />
-      <h1 className="title-list">Your Trip List</h1>
+      <h1 className="title-list">Bookings</h1>
+      {!tripList.length && <h2 className="empty">Empty</h2>}
       <div className="list">
         {tripList?.map(
           ({

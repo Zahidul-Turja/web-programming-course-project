@@ -12,6 +12,7 @@ function WishList() {
     <>
       <Navbar />
       <h1 className="title-list">Your Wish List</h1>
+      {!wishList.length && <h2 className="empty">Empty</h2>}
       <div className="list">
         {wishList?.map(
           ({

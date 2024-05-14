@@ -33,6 +33,29 @@
       }
     }
 
+    .delete-btn {
+      padding: 0.5rem 1rem;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgb(212, 42, 42);
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+
+      transition: all 0.2s;
+
+      .del-icon {
+        margin-right: 10px;
+      }
+    }
+
+    .delete-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
     .save {
       display: flex;
       align-items: center;
@@ -161,6 +184,56 @@
 
         @include lg {
           max-width: 300px;
+        }
+      }
+    }
+
+    .customer {
+      padding: 1.5rem 2rem 3rem 3rem;
+      margin-top: 3rem;
+      width: 30rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+
+      h1 {
+        text-align: center;
+        text-transform: uppercase;
+        color: $pinkred;
+        font-weight: 800;
+        letter-spacing: 0.1rem;
+        margin-bottom: 1rem;
+      }
+
+      .customer-box {
+        display: flex;
+        justify-content: space-between;
+
+        img {
+          width: 8rem;
+          height: 8rem;
+        }
+
+        .customer-info {
+          width: 60%;
+
+          h2 {
+            letter-spacing: 0.1rem;
+            margin-bottom: -1.5rem;
+          }
+
+          .profession {
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 1rem;
+          }
+          h3 {
+            font-size: 1rem;
+            font-weight: 700;
+          }
+          .email,
+          .phone {
+            margin-top: 0.2rem;
+          }
         }
       }
     }

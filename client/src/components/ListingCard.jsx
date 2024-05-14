@@ -23,6 +23,7 @@ function ListingCard({
   startDate,
   endDate,
   totalPrice,
+  isBooked,
   booking,
 }) {
   /* SLIDER FOR IMAGES */
@@ -73,7 +74,7 @@ function ListingCard({
         navigate(`/properties/${listingId}`);
       }}
     >
-      <div className="slider-container">
+      <div className={`slider-container ${isBooked ? "booked" : ""}`}>
         <div
           className="slider"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -106,6 +107,8 @@ function ListingCard({
           ))}
         </div>
       </div>
+
+      {isBooked && <h2 className="booked-title">BOOKED</h2>}
 
       <h3>
         {city}, {province}, {country}

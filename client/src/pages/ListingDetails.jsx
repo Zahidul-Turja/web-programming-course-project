@@ -10,12 +10,37 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { facilities } from "../data";
 import "../styles/ListingDetails.scss";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 function ListingDetails() {
   const [loading, setLoading] = useState(true);
 
   const { listingId } = useParams();
   const [listing, setListing] = useState(null);
+
+  const [customerDetail, setCustomerDetail] = useState("");
+
+  async function getCustomerDetail() {
+    if (!listing?.isBooked) {
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `http://localhost:3001/bookings/getCustomer/${listingId}`,
+        {
+          method: "GET",
+        }
+      );
+      const data = await res.json();
+      setCustomerDetail(data.data);
+    } catch (err) {
+      console.log("Fetch Listing Details Failed", err.message);
+    }
+  }
+
+  // useEffect(() => {
+  // }, [listing]);
 
   const getListingDetails = async () => {
     try {
@@ -37,6 +62,10 @@ function ListingDetails() {
   useEffect(() => {
     getListingDetails();
   }, []);
+
+  useEffect(() => {
+    getCustomerDetail();
+  }, [listing]);
 
   //   console.log(listing);
 
@@ -75,6 +104,25 @@ function ListingDetails() {
     }
   };
 
+  async function handleDelete() {
+    try {
+      const res = await fetch(
+        `http://localhost:3001/properties/${listingId}/${customerId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      console.log("DELETE", res);
+
+      if (res.ok) {
+        navigate("/");
+      }
+    } catch (err) {
+      console.log("Error while delete: ", err);
+    }
+  }
+
   return loading ? (
     <Loader />
   ) : (
@@ -84,7 +132,14 @@ function ListingDetails() {
       <div className="listing-details">
         <div className="title">
           <h1>{listing.title}</h1>
-          <div></div>
+          {customerId === listing?.creator._id || !customerId ? (
+            <button className="delete-btn" onClick={handleDelete}>
+              <FaRegTrashAlt className="del-icon" />
+              Delete
+            </button>
+          ) : (
+            <div></div>
+          )}
         </div>
 
         <div className="photos">
@@ -153,32 +208,57 @@ function ListingDetails() {
           </div>
 
           <div>
-            <div className="book-div">
-              <h2>
-                ৳{listing.price} <span>per month</span>
-              </h2>
-              <p>
-                Available from: <span> {listing?.date?.slice(0, 15)}</span>
-              </p>
+            {!listing.isBooked ? (
+              <div className="book-div">
+                <h2>
+                  ৳{listing.price} <span>per month</span>
+                </h2>
+                <p>
+                  Available from: <span> {listing?.date?.slice(0, 15)}</span>
+                </p>
 
-              <button
-                className="button"
-                type="submit"
-                onClick={handleSubmit}
-                disabled={customerId === listing?.creator._id || !customerId}
-                style={
-                  customerId === listing?.creator._id || !customerId
-                    ? {
-                        cursor: "not-allowed",
-                      }
-                    : {
-                        cursor: "pointer",
-                      }
-                }
-              >
-                Book now
-              </button>
-            </div>
+                <button
+                  className="button"
+                  type="submit"
+                  onClick={handleSubmit}
+                  disabled={customerId === listing?.creator._id || !customerId}
+                  style={
+                    customerId === listing?.creator._id || !customerId
+                      ? {
+                          cursor: "not-allowed",
+                        }
+                      : {
+                          cursor: "pointer",
+                        }
+                  }
+                >
+                  Book now
+                </button>
+              </div>
+            ) : (
+              <div className="customer">
+                <h1>Booked By</h1>
+                <div className="customer-box">
+                  <img
+                    src={`http://localhost:3001/${customerDetail?.profileImagePath?.replace(
+                      "public",
+                      ""
+                    )}`}
+                    alt="profile avater"
+                    style={{ objectFit: "cover", borderRadius: "50%" }}
+                  />
+                  <div className="customer-info">
+                    <h2>
+                      {customerDetail?.firstName} {customerDetail?.lastName}
+                    </h2>
+                    <p className="profession">{customerDetail?.profession}</p>
+                    <h3>Contact</h3>
+                    <p className="email">Email: {customerDetail.email}</p>
+                    <p className="phone">Phone: {customerDetail.phone}</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

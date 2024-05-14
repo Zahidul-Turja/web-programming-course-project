@@ -42,6 +42,7 @@ function PropertyList() {
     <>
       <Navbar />
       <h1 className="title-list">Your Property List</h1>
+      {!propertyList.length && <h2 className="empty">Empty</h2>}
       <div className="list">
         {propertyList?.map(
           ({
@@ -54,6 +55,7 @@ function PropertyList() {
             category,
             type,
             price,
+            isBooked,
             booking = false,
           }) => (
             <ListingCard
@@ -66,6 +68,7 @@ function PropertyList() {
               category={category}
               type={type}
               price={price}
+              isBooked={isBooked}
               booking={booking}
             />
           )

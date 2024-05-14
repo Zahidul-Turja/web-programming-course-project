@@ -3,6 +3,7 @@ const multer = require("multer");
 
 const Listing = require("../models/Listing");
 const User = require("../models/User");
+const Booking = require("../models/Booking");
 
 // ! Configuration Multer for File Upload
 const storage = multer.diskStorage({
@@ -153,11 +154,28 @@ router.get("/:listingId", async (req, res) => {
   try {
     const { listingId } = req.params;
     const listing = await Listing.findById(listingId).populate("creator");
+    // If listing.isBooked then get who bookedIt
+
     res.status(202).json(listing);
   } catch (err) {
     res
       .status(404)
       .json({ message: "Listing can not found!", error: err.message });
+  }
+});
+
+// ! Delete Listing
+router.delete("/:listingId/:hostId", async (req, res) => {
+  try {
+    const { listingId, hostId } = req.params;
+
+    await Listing.findByIdAndDelete(listingId);
+
+    res.status(204).json({ message: "Success", data: null });
+  } catch (err) {
+    res
+      .status(404)
+      .json({ message: "Listing deletion failed", error: err.message });
   }
 });
 

@@ -1,7 +1,6 @@
 @import "./breakpoints.scss";
 @import "./variables.scss";
 
-
 .title-list {
   margin: 40px 100px;
   color: $blue;
@@ -17,8 +16,18 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 25px;
+  min-height: 30vh;
 
   @include xl {
     padding: 0 20px 120px;
   }
+}
+
+.empty {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  opacity: 0.6;
+  margin-top: 5rem;
+  letter-spacing: 0.2rem;
 }
