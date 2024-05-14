@@ -1,22 +1,19 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 
 import "../styles/profile.scss";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import Footer from "../components/Footer";
+import { MdEdit } from "react-icons/md";
 
 function ProfilePage() {
-  const [loading, setLoading] = useState(false);
-
   const user = useSelector((state) => state.user);
 
-  return loading ? (
-    <Loader />
-  ) : (
+  return (
     <>
       <Navbar />
-
       <div className="main-container">
         <h1>My Profile</h1>
 
@@ -32,8 +29,11 @@ function ProfilePage() {
             <h2>
               {user.firstName} {user.lastName}
             </h2>
+            {/* <Link to={`/${user._id}/profile/edit`} className="edit-btn">
+              <MdEdit /> Edit
+            </Link> */}
             <p className="profession">{user.profession}</p>
-            <p className="about">{user.about}</p>
+            <p className="about">{user?.about}</p>
           </div>
         </div>
 
@@ -57,7 +57,6 @@ function ProfilePage() {
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );

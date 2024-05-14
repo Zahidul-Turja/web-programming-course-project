@@ -13,6 +13,7 @@ import ReservationList from "./pages/ReservationList";
 import CategoryPage from "./pages/CategoryPage";
 import SearchPage from "./pages/SearchPage";
 import ProfilePage from "./pages/ProfilePage";
+import ProfileEdit from "./pages/ProfileEdit";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           />
           <Route path="/properties/search/:search" element={<SearchPage />} />
           <Route path="/:userId/profile" element={<ProfilePage />} />
+          <Route path="/:userId/profile/edit" element={<ProfileEdit />} />
           <Route path="/:userId/trips" element={<TripList />} />
           <Route path="/:userId/wish-list" element={<WishList />} />
           <Route path="/:userId/properties" element={<PropertyList />} />

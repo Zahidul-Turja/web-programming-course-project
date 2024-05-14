@@ -28,7 +28,7 @@ function LoginPage() {
       /* Get data after fetching */
       const loggedIn = await response.json();
 
-      if (loggedIn) {
+      if (loggedIn.status === "success") {
         dispatch(
           setLogin({
             user: loggedIn.user,

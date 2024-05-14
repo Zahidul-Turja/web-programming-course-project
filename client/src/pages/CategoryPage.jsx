@@ -43,6 +43,7 @@ function CategoryPage() {
     <>
       <Navbar />
       <h1 className="title-list">{category} listings</h1>
+      {!listings.length && <h2 className="empty">Empty</h2>}
       <div className="list">
         {listings?.map(
           ({

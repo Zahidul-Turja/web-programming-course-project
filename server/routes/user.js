@@ -1,8 +1,25 @@
 const router = require("express").Router();
+const multer = require("multer");
+const jwt = require("jsonwebtoken");
 
 const Booking = require("../models/Booking");
 const User = require("../models/User");
 const Listing = require("../models/Listing");
+
+// ! Configuration Multer for file Upload
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/uploads/profile/"); // store uploaded files in "uploads" folder
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      Math.random().toString(36).substring(2, 12) + "-" + file.originalname
+    ); // use the original filename
+  },
+});
+
+const upload = multer({ storage });
 
 // ! GET TRIP LIST
 router.get("/:userId/trips", async (req, res) => {
@@ -85,6 +102,53 @@ router.get("/:userId/reservations", async (req, res) => {
     res
       .status(404)
       .json({ message: "Can not find reservations!", error: err.message });
+  }
+});
+
+// ! Edit Profile
+router.patch("/:userId", upload.single("profileImage"), async (req, res) => {
+  try {
+    // Take all info from the form
+    const { firstName, lastName, about, phone, profession } = req.body;
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+
+    // Uploaded file  is available as req.file
+    const profileImage = req.file;
+
+    if (!profileImage) {
+      return res.status(400).send("No file uploaded");
+    }
+
+    // path to the uploaded profile photo
+    const profileImagePath = profileImage.path;
+
+    const updated_info = {
+      firstName,
+      lastName,
+      about,
+      phone,
+      profession,
+      profileImagePath,
+    };
+
+    const updated_user = await User.findByIdAndUpdate(
+      req.params.userId,
+      updated_info
+    );
+    updated_user.email = user.email;
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
+    console.log(updated_user);
+
+    res.status(200).json({
+      user: updated_user,
+      token,
+    });
+  } catch (err) {
+    res.status(400).json({
+      message: "Update profile failed",
+    });
   }
 });
 

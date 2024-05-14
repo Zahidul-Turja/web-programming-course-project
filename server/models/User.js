@@ -28,8 +28,6 @@ const UserSchema = new mongoose.Schema(
     about: {
       // ! NEW
       type: String,
-      default:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi aliquam quasi maxime ab, perspiciatis aspernatur consectetur unde eum atque exercitationem. Excepturi aliquam quasi maxime ab, perspiciatis aspernatur consectetur unde eum atque exercitationem.",
     },
     password: {
       type: String,

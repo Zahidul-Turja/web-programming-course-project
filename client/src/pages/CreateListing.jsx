@@ -251,17 +251,6 @@ function CreateListing() {
                   required
                 />
               </div>
-              {/* <div className="location">
-                <p>Country</p>
-                <input
-                  type="text"
-                  placeholder="Country"
-                  name="country"
-                  value={formLocation.country}
-                  onChange={handleChangeLocation}
-                  required
-                />
-              </div> */}
             </div>
 
             <h3>Share some basics about your place</h3>
@@ -572,7 +561,7 @@ function CreateListing() {
                   onChange={handleChangeDescription}
                   required
                 />
-                <p>Now, set your PRICE / MONTH</p>
+                <p>Now, set your RENT / MONTH</p>
                 <span>৳</span>
                 <input
                   type="number"
